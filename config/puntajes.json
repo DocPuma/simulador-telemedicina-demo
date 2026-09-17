@@ -1,0 +1,183 @@
+{
+  "version": "1.0",
+  "nombre": "ConfiguracionPuntajesAnamnesisTelemedicina",
+  "puntaje_maximo": 100,
+  "areas": {
+    "encuadre_digital_y_seguridad": {
+      "maximo": 30
+    },
+    "anamnesis_clinica": {
+      "maximo": 20
+    },
+    "comunicacion_remota": {
+      "maximo": 10
+    },
+    "triaje_y_seguridad_clinica": {
+      "maximo": 25
+    },
+    "resolucion_clinica": {
+      "maximo": 15
+    }
+  },
+  "criterios": {
+    "E1_verificacion_identidad": {
+      "area": "encuadre_digital_y_seguridad",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 2.5,
+        "2": 5
+      }
+    },
+    "E2_ubicacion_fisica_actual": {
+      "area": "encuadre_digital_y_seguridad",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 5,
+        "2": 10
+      }
+    },
+    "E3_privacidad_y_contexto": {
+      "area": "encuadre_digital_y_seguridad",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 5,
+        "2": 10
+      }
+    },
+    "E4_condiciones_tecnicas": {
+      "area": "encuadre_digital_y_seguridad",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 2.5,
+        "2": 5
+      }
+    },
+    "A1_motivo_de_consulta": {
+      "area": "anamnesis_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 2,
+        "2": 4
+      }
+    },
+    "A2_enfermedad_actual": {
+      "area": "anamnesis_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 4,
+        "2": 8
+      }
+    },
+    "A3_antecedentes_relevantes": {
+      "area": "anamnesis_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 2,
+        "2": 4
+      }
+    },
+    "A4_medicacion_y_alergias": {
+      "area": "anamnesis_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 2,
+        "2": 4
+      }
+    },
+    "C1_claridad_comunicacional": {
+      "area": "comunicacion_remota",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3
+      }
+    },
+    "C2_escucha_activa": {
+      "area": "comunicacion_remota",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3
+      }
+    },
+    "C3_empatia_y_vinculo": {
+      "area": "comunicacion_remota",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 1,
+        "2": 3,
+        "3": 4
+      }
+    },
+    "T1_exploracion_signos_alarma": {
+      "area": "triaje_y_seguridad_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 7.5,
+        "2": 15
+      }
+    },
+    "T2_reconocimiento_riesgo": {
+      "area": "triaje_y_seguridad_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 5,
+        "2": 10
+      }
+    },
+    "R1_decision_modalidad_asistencial": {
+      "area": "resolucion_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 5,
+        "2": 10
+      }
+    },
+    "R2_justificacion_decision": {
+      "area": "resolucion_clinica",
+      "niveles_puntos": {
+        "0": 0,
+        "1": 2.5,
+        "2": 5
+      }
+    }
+  },
+  "niveles_competencia": [
+    {
+      "desde": 0,
+      "hasta_menor_que": 60,
+      "nivel": "Insuficiente"
+    },
+    {
+      "desde": 60,
+      "hasta_menor_que": 75,
+      "nivel": "En desarrollo"
+    },
+    {
+      "desde": 75,
+      "hasta_menor_que": 90,
+      "nivel": "Competente"
+    },
+    {
+      "desde": 90,
+      "hasta_inclusive": 100,
+      "nivel": "Sobresaliente"
+    }
+  ],
+  "reglas_aprobacion": {
+    "puntaje_minimo": 75,
+    "criterios_obligatorios": {
+      "E2_ubicacion_fisica_actual": 2,
+      "T1_exploracion_signos_alarma": 2,
+      "T2_reconocimiento_riesgo": 2,
+      "R1_decision_modalidad_asistencial": 2
+    },
+    "error_critico_mayor_bloquea_aprobacion": true,
+    "maximo_errores_criticos_no_mayores_para_aprobar": 1,
+    "tope_nivel_si_error_critico_mayor": "En desarrollo",
+    "tope_nivel_si_dos_o_mas_errores_criticos_no_mayores": "En desarrollo"
+  },
+  "principio_calculo": "La IA asigna niveles y evidencia. El software convierte niveles en puntos, suma áreas, aplica reglas de seguridad y determina aprobación y nivel final."
+}

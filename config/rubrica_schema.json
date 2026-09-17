@@ -1,0 +1,436 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RegistroEvaluacionAnamnesisTelemedicina_v2.1",
+  "description": "Esquema final de una evaluación de simulación de teleconsulta. La IA asigna niveles y evidencia; el software calcula los puntajes y el resultado.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version_esquema": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "version_mvp": {
+      "type": "string"
+    },
+    "estudiante": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nombre": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comision": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "nombre"
+      ]
+    },
+    "sesion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "caso_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fecha_hora": {
+          "type": "string"
+        },
+        "duracion_minutos": {
+          "type": "number",
+          "minimum": 0
+        },
+        "plataforma_simulada": {
+          "type": "string"
+        },
+        "finalidad": {
+          "type": "string",
+          "enum": [
+            "formativa",
+            "sumativa"
+          ]
+        },
+        "modelos": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "paciente": {
+              "type": "string"
+            },
+            "evaluador": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "paciente",
+            "evaluador"
+          ]
+        }
+      },
+      "required": [
+        "caso_id",
+        "finalidad"
+      ]
+    },
+    "evaluacion_ia": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criterios": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "E1_verificacion_identidad": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "E2_ubicacion_fisica_actual": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "E3_privacidad_y_contexto": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "E4_condiciones_tecnicas": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "A1_motivo_de_consulta": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "A2_enfermedad_actual": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "A3_antecedentes_relevantes": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "A4_medicacion_y_alergias": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "C1_claridad_comunicacional": {
+              "$ref": "#/definitions/criterio_0_3"
+            },
+            "C2_escucha_activa": {
+              "$ref": "#/definitions/criterio_0_3"
+            },
+            "C3_empatia_y_vinculo": {
+              "$ref": "#/definitions/criterio_0_3"
+            },
+            "T1_exploracion_signos_alarma": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "T2_reconocimiento_riesgo": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "R1_decision_modalidad_asistencial": {
+              "$ref": "#/definitions/criterio_0_2"
+            },
+            "R2_justificacion_decision": {
+              "$ref": "#/definitions/criterio_0_2"
+            }
+          },
+          "required": [
+            "E1_verificacion_identidad",
+            "E2_ubicacion_fisica_actual",
+            "E3_privacidad_y_contexto",
+            "E4_condiciones_tecnicas",
+            "A1_motivo_de_consulta",
+            "A2_enfermedad_actual",
+            "A3_antecedentes_relevantes",
+            "A4_medicacion_y_alergias",
+            "C1_claridad_comunicacional",
+            "C2_escucha_activa",
+            "C3_empatia_y_vinculo",
+            "T1_exploracion_signos_alarma",
+            "T2_reconocimiento_riesgo",
+            "R1_decision_modalidad_asistencial",
+            "R2_justificacion_decision"
+          ]
+        },
+        "errores_criticos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "codigo": {
+                "type": "string",
+                "pattern": "^EC-[0-9]{2}$"
+              },
+              "detectado": {
+                "type": "boolean"
+              },
+              "severidad": {
+                "type": "string",
+                "enum": [
+                  "menor",
+                  "mayor"
+                ]
+              },
+              "evidencia": {
+                "type": "string"
+              },
+              "observacion": {
+                "type": "string"
+              }
+            },
+        "required": [
+          "codigo",
+          "detectado",
+          "severidad",
+          "evidencia",
+          "observacion"
+        ]
+          }
+        },
+        "sintesis": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "puntos_fuertes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 5
+            },
+            "aspectos_a_mejorar": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 5
+            },
+            "recomendacion_para_alumno": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "puntos_fuertes",
+            "aspectos_a_mejorar",
+            "recomendacion_para_alumno"
+          ]
+        }
+      },
+      "required": [
+        "criterios",
+        "errores_criticos",
+        "sintesis"
+      ]
+    },
+    "transcripcion": {
+      "type": "string"
+    },
+    "resultado_calculado": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fuente_calculo": {
+          "type": "string",
+          "const": "motor_deterministico"
+        },
+        "puntajes_por_area": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "encuadre_digital_y_seguridad": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 30
+            },
+            "anamnesis_clinica": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "comunicacion_remota": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "triaje_y_seguridad_clinica": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 25
+            },
+            "resolucion_clinica": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 15
+            }
+          },
+          "required": [
+            "encuadre_digital_y_seguridad",
+            "anamnesis_clinica",
+            "comunicacion_remota",
+            "triaje_y_seguridad_clinica",
+            "resolucion_clinica"
+          ]
+        },
+        "puntajes_por_criterio": {
+          "type": "object",
+          "minProperties": 15,
+          "maxProperties": 15,
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "puntaje_total": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "aprobado": {
+          "type": "boolean"
+        },
+        "nivel_competencia": {
+          "type": "string",
+          "enum": [
+            "Insuficiente",
+            "En desarrollo",
+            "Competente",
+            "Sobresaliente"
+          ],
+          "description": "Campo conservado por compatibilidad. Debe coincidir con nivel_competencia_final."
+        },
+        "errores_criticos_mayores": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^EC-[0-9]{2}$"
+          },
+          "uniqueItems": true
+        },
+        "errores_criticos_otros": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^EC-[0-9]{2}$"
+          },
+          "uniqueItems": true
+        },
+        "criterios_obligatorios_incumplidos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "motivos_no_aprobacion": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nivel_por_puntaje": {
+          "type": "string",
+          "enum": [
+            "Insuficiente",
+            "En desarrollo",
+            "Competente",
+            "Sobresaliente"
+          ]
+        },
+        "nivel_competencia_final": {
+          "type": "string",
+          "enum": [
+            "Insuficiente",
+            "En desarrollo",
+            "Competente",
+            "Sobresaliente"
+          ]
+        },
+        "modificado_por_regla_seguridad": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "fuente_calculo",
+        "puntajes_por_area",
+        "puntaje_total",
+        "aprobado",
+        "nivel_competencia",
+        "errores_criticos_mayores",
+        "errores_criticos_otros",
+        "motivos_no_aprobacion",
+        "nivel_por_puntaje",
+        "nivel_competencia_final",
+        "modificado_por_regla_seguridad"
+      ]
+    }
+  },
+  "required": [
+    "version_esquema",
+    "estudiante",
+    "sesion",
+    "evaluacion_ia",
+    "resultado_calculado"
+  ],
+  "definitions": {
+    "criterio_0_2": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nivel": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "evidencia": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3
+        },
+        "observacion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "nivel",
+        "evidencia",
+        "observacion"
+      ]
+    },
+    "criterio_0_3": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nivel": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "evidencia": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3
+        },
+        "observacion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "nivel",
+        "evidencia",
+        "observacion"
+      ]
+    }
+  }
+}
